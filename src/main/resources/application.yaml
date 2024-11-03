@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: jug-rag-spring-ai
+
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      embedding:
+       options:
+         model: text-embedding-ada-002
+      chat:
+        options:
+          model: gpt-4-turbo
+
+    vectorstore:
+      milvus:
+        initialize-schema: true
+        client:
+          host: "localhost"
+          port: 19530
+          username: "root"
+          password: "milvus"
+        databaseName: "default"
+        collectionName: "vector_store"
+        embeddingDimension: 1536
+        indexType: IVF_FLAT
+        metricType: COSINE
+
+app:
+  resource: "https://www.meetup.com/bydgoszczjug/events/304276236/"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
