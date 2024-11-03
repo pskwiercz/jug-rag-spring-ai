@@ -26,8 +26,8 @@ public class RagController {
     final ChatModel chatModel;
     final VectorStore vectorStore;
 
-    @Value("classpath:/templates/rag-prompt-template.st")
-    private Resource ragPromptTemplate;
+    @Value("classpath:/templates/prompt-template.st")
+    private Resource promptTemplate;
 
     @PostMapping("/ask")
     public Answer ask(@RequestBody Question question) {
@@ -37,7 +37,7 @@ public class RagController {
 
         List<String> contentList = documents.stream().map(Document::getContent).toList();
 
-        PromptTemplate promptTemplate = new PromptTemplate(ragPromptTemplate);
+        PromptTemplate promptTemplate = new PromptTemplate(this.promptTemplate);
 
         Prompt prompt = promptTemplate.create(Map.of(
                 "input", question.question(),
