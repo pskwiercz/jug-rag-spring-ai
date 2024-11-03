@@ -18,7 +18,7 @@ The first time you run it, it will take a some time to initialize vector store. 
 
 Now you can use application and ask questions.
 ```
-http :8080/ask question="your_question"
+http :8080/ask question="your_question?"
 ```
  
 
