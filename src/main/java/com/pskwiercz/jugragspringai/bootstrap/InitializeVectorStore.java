@@ -30,8 +30,8 @@ public class InitializeVectorStore implements CommandLineRunner {
             TikaDocumentReader documentReader = new TikaDocumentReader(documentResource);
             TextSplitter textSplitter = new TokenTextSplitter();
             vectorStore.accept(
-                    textSplitter.apply(
-                            documentReader.get()));
+                    textSplitter.apply(documentReader.get())
+            );
 
         } catch (Exception e) {
             log.warn(e.getMessage());

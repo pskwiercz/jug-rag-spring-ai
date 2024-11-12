@@ -3,6 +3,8 @@ package com.pskwiercz.jugragspringai.controller;
 import com.pskwiercz.jugragspringai.model.Answer;
 import com.pskwiercz.jugragspringai.model.Question;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -50,6 +52,21 @@ public class RagController {
         return new Answer(response.getResult().getOutput().getContent());
     }
 
+    @PostMapping("/advice")
+    public Answer askAdvisor(@RequestBody Question question) {
+
+        var chatClient = ChatClient.builder(chatModel)
+            .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults()))
+                .build();
+
+        String answer = chatClient.prompt()
+                .user(question.question())
+                .advisors(new QuestionAnswerAdvisor(vectorStore))
+                .call()
+                .content();
+
+        return new Answer(answer);
+    }
 }
 
 
