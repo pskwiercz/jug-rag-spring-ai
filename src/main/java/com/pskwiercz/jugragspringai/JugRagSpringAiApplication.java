@@ -24,13 +24,11 @@ public class JugRagSpringAiApplication {
      */
     @Bean
     RestClientCustomizer restClientCustomizer() {
-        return restClientBuilder -> {
-            restClientBuilder
-                .requestFactory(new BufferingClientHttpRequestFactory(
-                    ClientHttpRequestFactories.get(ClientHttpRequestFactorySettings.DEFAULTS
-                        .withConnectTimeout(Duration.ofSeconds(60))
-                        .withReadTimeout(Duration.ofSeconds(120))
-                )));
-        };
+        return restClientBuilder -> restClientBuilder
+            .requestFactory(new BufferingClientHttpRequestFactory(
+                ClientHttpRequestFactories.get(ClientHttpRequestFactorySettings.DEFAULTS
+                    .withConnectTimeout(Duration.ofSeconds(60))
+                    .withReadTimeout(Duration.ofSeconds(120))
+            )));
     }
 }
